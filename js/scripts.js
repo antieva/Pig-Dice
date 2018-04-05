@@ -26,6 +26,16 @@ Player.prototype.calcTurnScore = function(num) {
   return this.turnScore;
 }
 
+function resetFieldsPlayer() {
+    $("#diceRollUser").val("");
+    $("#turnScoreUser").val("");
+}
+
+function resetFieldsComp() {
+    $("#diceRollComp").val("");
+    $("#turnScoreComp").val("");
+}
+
 
 
 // UI logic
@@ -48,6 +58,7 @@ $(document).ready(function(){
     $("#totalScoreUser").text(score);
 
     $("#roll").on('click', function() {
+      resetFieldsComp();
       newPlayer.dice.randomNum = newPlayer.dice.oneRoll();
       console.log(newPlayer.dice.randomNum);
       $("#diceRollUser").text(newPlayer.dice.randomNum);
@@ -60,8 +71,39 @@ $(document).ready(function(){
     });
 
     $("#switch").on('click', function() {
+      newPlayer.score = newPlayer.calcTotalScore();
+      $("#totalScoreUser").text(newPlayer.score);
+      newPlayer.dice.randomNum = 0;
+      newPlayer.turnScore = 0;
 
-    })
+      for (var i = 1; i <=2; i++) {
+        if(newPlayer.score >= 100) {
+          alert("You win!!! Game over.")
+          resetFieldsComp();
+          break;
+        }
+        computer.dice.randomNum = computer.dice.oneRoll();
+        console.log(computer.dice.randomNum + "Comp dice")
+        $("#diceRollComp").text(computer.dice.randomNum);
+        computer.turnScore = computer.calcTurnScore(computer.dice.randomNum );
+        console.log(computer.turnScore + "Comp turn score");
+        $("#turnScoreUser").text(computer.turnScore);
+        if(computer.turnScore == 0) {
+          alert("Computer turn is over! Roll a dice!");
+          break;
+        }
+      }
+      computer.score = computer.calcTotalScore();
+      $("#totalScoreComp").text(computer.score);
+      computer.turnScore = 0;
+      $("#turnScoreUser").text(computer.turnScore);
+      if(computer.score >= 100) {
+        alert("Computer win!!! Game over.")
+        resetFieldsPlayer();
+      } else {
+        alert("Computer turn is over! Roll a dice!");
+      }
+    });
 
   });
 });
