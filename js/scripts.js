@@ -49,15 +49,17 @@ $(document).ready(function(){
 
     $("#roll").on('click', function() {
       newPlayer.dice.randomNum = newPlayer.dice.oneRoll();
+      console.log(newPlayer.dice.randomNum);
       $("#diceRollUser").text(newPlayer.dice.randomNum);
       newPlayer.turnScore = newPlayer.calcTurnScore(newPlayer.dice.randomNum );
+      console.log(newPlayer.turnScore);
       $("#turnScoreUser").text(newPlayer.turnScore);
       if(newPlayer.turnScore == 0) {
         alert("Your turn is over! Please switch turn.");
       }
     });
 
-    S("#switch").on('click', function() {
+    $("#switch").on('click', function() {
 
     })
 
