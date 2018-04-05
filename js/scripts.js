@@ -1,17 +1,29 @@
 // Business logic
+function Dice(){
+  this.randomNum = 0;
+}
 
+Dice.prototype.oneRoll = function() {
+  return this.randomNum = Math.floor(Math.random() * 6) + 1;
+}
 
-function User(turnScore, score) {
-  this.turnScore = turnScore
+function Player(turnScore, score) {
+  this.dice = new Dice();
+  this.turnScore = turnScore;
   this.score = score;
 }
 
-User.prototype.calcTotalScore = function() {
+Player.prototype.calcTotalScore = function() {
   return this.score += this.turnScore;
 }
 
-User.prototype.calcTurnScore = function(num) {
-  return this.turnScore += num;
+Player.prototype.calcTurnScore = function(num) {
+  if(num == 1) {
+    this.turnScore = 0;
+  } else {
+    this.turnScore += num;
+  }
+  return this.turnScore;
 }
 
 
@@ -19,91 +31,35 @@ User.prototype.calcTurnScore = function(num) {
 // UI logic
 $(document).ready(function(){
   $("#start").on("click", function(){
-    console.log("Hey");
+
     // initial values
     var turnScore = 0;
     var score = 0;
-    var oneRoll = 0;
 
     // instantiate users object
-    var newUser = new User(turnScore, score);
-    var computer = new User(turnScore, score);
+    var newPlayer = new Player(turnScore, score);
+    var computer = new Player(turnScore, score);
 
-    $("#diceRollComp").text(oneRoll);
+    $("#diceRollComp").text(computer.dice.randomNum);
     $("#turnScoreComp").text(turnScore);
     $("#totalScoreComp").text(score);
-    $("#diceRollUser").text(oneRoll);
+    $("#diceRollUser").text(newPlayer.dice.randomNum);
     $("#turnScoreUser").text(turnScore);
     $("#totalScoreUser").text(score);
 
-
-    var rolling = function(oneRoll, someObject, string) {
-      oneRoll = Math.floor(Math.random() * 6) + 1;
-      $("#diceRoll"+string).text(oneRoll);
-      if(oneRoll != 1){
-        this.turnScore = someObject.calcTurnScore(oneRoll);
-        $("#turnScore"+string).text(someObject.turnScore);
-      } else {
-        newUser.turnScore = 0;
-        $("#turnScore"+string).text(someObject.turnScore);
+    $("#roll").on('click', function() {
+      newPlayer.dice.randomNum = newPlayer.dice.oneRoll();
+      $("#diceRollUser").text(newPlayer.dice.randomNum);
+      newPlayer.turnScore = newPlayer.calcTurnScore(newPlayer.dice.randomNum );
+      $("#turnScoreUser").text(newPlayer.turnScore);
+      if(newPlayer.turnScore == 0) {
+        alert("Your turn is over! Please switch turn.");
       }
-      return newUser.turnScore;
-    }
-
-    $("#roll").on('click', function(){
-      if (oneRoll != 1) {
-      var score = rolling(oneRoll, newUser, "User");
-    } else {
-      alert()
-    }
     });
 
+    S("#switch").on('click', function() {
 
-
-      $("#roll").on('click', function(){
-        console.log("WooHoo");
-        //computer.score = computer.totalScore();
-        $("#Comp-totalScore").text();
-        $("#switch2").hide();
-        oneRoll = Math.floor(Math.random() * 6) + 1;
-        $("#diceRoll").text(oneRoll);
-        console.log("Random: " + oneRoll)
-        if(oneRoll != 1){
-          newUser.turnScore = newUser.totalTurnScore(oneRoll);
-          $("#turnScore").text(newUser.turnScore);
-          console.log("Dice:" + newUser.turnScore);
-        } else {
-          newUser.turnScore = 0;
-          $("#turnScore").text(newUser.turnScore);
-          $("#switch1").show();
-          newUser.score = newUser.totalScore();
-          $("#totalScore").text(newUser.score);
-
-          if(oneRoll == 1){
-            computer.turnScore = 0;
-            $("#switch2").show();
-          } else {
-            computer.turnScore = computer.totalTurnScore(oneRoll);
-            console.log("Dice:" + computer.turnScore);
-            oneRoll = Math.floor(Math.random() * 6) + 1;
-            console.log("Random: " + oneRoll)
-          }
-        }
-      });
-
-      $("#stop").on('click', function(){
-        newUser.score = newUser.totalScore();
-        $("#switch1").hide();
-        if(oneRoll == 1){
-          computer.turnScore = 0;
-          $("#switch2").show();
-        } else {
-          computer.turnScore = computer.totalTurnScore(oneRoll);
-          console.log("Dice:" + computer.turnScore);
-          x = Math.floor(Math.random() * 6) + 1;
-          console.log("Random: " + oneRoll)
-        }
-      });
+    })
 
   });
-})
+});
