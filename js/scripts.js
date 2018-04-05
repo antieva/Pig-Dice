@@ -86,35 +86,35 @@ $(document).ready(function(){
       }
     });
 
-      $("#switch").on('click', function() {
-        for (var i = 1; i <= 2; i++) {
-          computer.dice.randomNum = computer.dice.oneRoll();
-          console.log(computer.dice.randomNum + "Comp dice")
-          $("#diceRollComp").text(computer.dice.randomNum);
-          computer.turnScore = computer.calcTurnScore(computer.dice.randomNum );
-          console.log(computer.turnScore + "Comp turn score");
-          $("#turnScoreUser").text(computer.turnScore);
-          if(computer.turnScore == 0) {
-            $("#message").text("Computer turn is over! Roll a dice!");
-            $("#output").show();
-            break;
-          }
-        }
-        computer.score = computer.calcTotalScore();
-        $("#totalScoreComp").text(computer.score);
-        computer.turnScore = 0;
+    $("#switch").on('click', function() {
+      for (var i = 1; i <= 2; i++) {
+        computer.dice.randomNum = computer.dice.oneRoll();
+        console.log(computer.dice.randomNum + "Comp dice")
+        $("#diceRollComp").text(computer.dice.randomNum);
+        computer.turnScore = computer.calcTurnScore(computer.dice.randomNum );
+        console.log(computer.turnScore + "Comp turn score");
         $("#turnScoreUser").text(computer.turnScore);
-        if(computer.score >= 100) {
-          $("#winner").text("Computer win!!! Game over.")
-          $("#outputWinner").show();
-          $("#output").hide();
-          resetFieldsPlayer();
-        } else {
+        if(computer.turnScore == 0) {
           $("#message").text("Computer turn is over! Roll a dice!");
           $("#output").show();
-          console.log("I am here!");
+          break;
         }
-      });
+      }
+      computer.score = computer.calcTotalScore();
+      $("#totalScoreComp").text(computer.score);
+      computer.turnScore = 0;
+      $("#turnScoreUser").text(computer.turnScore);
+      if(computer.score >= 100) {
+        $("#winner").text("Computer win!!! Game over.")
+        $("#outputWinner").show();
+        $("#output").hide();
+        resetFieldsPlayer();
+      } else {
+        $("#message").text("Computer turn is over! Roll a dice!");
+        $("#output").show();
+        console.log("I am here!");
+      }
+    });
 
   });
 });
