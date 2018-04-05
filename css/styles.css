@@ -7,15 +7,22 @@ button {
   margin-left: 20%;
   margin-right: 2%;
 }
+button#switch {
+  margin: 60% 0 0 45%;
+}
+
 h1, h2, h3 {
   text-align: center;
+}
+#output {
+margin-right: 25%;
 }
 
 .box {
   border: 2px solid black;
   border-radius: 10%;
   min-height: 50px;
-  width: 80px;
+  width: 100px;
   margin-left: 40%;
 }
 
@@ -23,6 +30,8 @@ span {
   font-size: 25pt;
   padding-left: 40%;
 }
-#output {
+#outputWinner {
   display: none;
+  text-align: center;
+  margin-right: 25%;
 }

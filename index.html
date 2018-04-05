@@ -13,7 +13,7 @@
     <div class="container">
       <h1>Pig Dice Game</h1>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h2>You</h2>
           <div class="dice">
             <h3>One Roll</h3>
@@ -35,10 +35,14 @@
           </div>
 
           <button id="roll" type="button" class="btn btn-success">Roll a Dice</button>
-          <button id="switch" type="button" class="btn btn-danger">Switch Turn</button>
+          <button id="stop" type="button" class="btn btn-danger">Stop Rolling</button>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
+          <button id="switch" type="button" class="btn btn-primary">Switch Turn</button>
+        </div>
+
+        <div class="col-md-4">
           <h2>Computer</h2>
           <div class="dice">
             <h3>One Roll</h3>
@@ -62,13 +66,18 @@
         </div>
       </div>
 
+      <div id="outputWinner">
+        <h1 class="outputMessage"><span id="winner"></span></h1>
+      </div>
+
+      <div id="output">
+        <h1 class="outputMessage"><span id="message"></span></h1>
+      </div>
+
       <div class="start">
         <button id="start" type="button" class="btn btn-primary">START THE GAME</button>
       </div>
 
-      <div id="output">
-        <h1><span id="winner"></span> win!</h1>
-      </div>
     </div>
 
   </body>
